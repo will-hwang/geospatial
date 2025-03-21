@@ -70,22 +70,22 @@ publishing {
         }
     }
     publications {
-        pluginZip(MavenPublication) { publication ->
+        all {
             pom {
-                name = "opensearch-geospatial-client"
-                description = 'OpenSearch Geospatial client'
-                licenses {
-                    license {
-                        name = "The Apache License, Version 2.0"
-                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                    }
-                }
-                developers {
-                    developer {
-                        name = "OpenSearch"
-                        url = "https://github.com/opensearch-project/geospatial"
-                    }
-                }
+                name = "opensearch-job-scheduler"
+                description = "OpenSearch Job Scheduler plugin"
+            }
+            pom.withXml { XmlProvider xml ->
+                Node node = xml.asNode()
+                node.appendNode('inceptionYear', '2021')
+
+                Node license = node.appendNode('licenses').appendNode('license')
+                license.appendNode('name', project.licenseName)
+                license.appendNode('url', project.licenseUrl)
+
+                Node developer = node.appendNode('developers').appendNode('developer')
+                developer.appendNode('name', 'OpenSearch')
+                developer.appendNode('url', 'https://github.com/opensearch-project/job-scheduler')
             }
         }
     }
